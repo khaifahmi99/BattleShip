@@ -1,2 +1,2 @@
 # BattleShip
-Week 3 Lab for DP1
+For development project 1
