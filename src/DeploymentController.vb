@@ -56,12 +56,16 @@ Module DeploymentController
         If SwinGame.MouseClicked(MouseButton.LeftButton) Then
             Dim selected As ShipName
             selected = GetShipMouseIsOver()
+			'''When the ship is selected in the selection panel, it will check if the shipname exists.
+			'''If it doesn't contain a value then it will be assigned the default value of ShipName.Tug
+			'''If it does contain a value it will deploy a ship that is selected in the selection panel on the location clicked on the grid using the function DoDeployClick()
             If selected <> ShipName.None Then
-                _selectedShip = selected
+                _selectedShip = selected '''Should be reversed - "selected = _selectedShip"
             Else
                 DoDeployClick()
             End If
-
+			'''Checks if the amount of ships are present on the board, then if the mouse when clicked is on the play button in the deployment screen, if so will execute EndDeployment()
+			'''Else if other buttons, will execute their intended use
             If HumanPlayer.ReadyToDeploy And IsMouseInRectangle(PLAY_BUTTON_LEFT, TOP_BUTTONS_TOP, PLAY_BUTTON_WIDTH, TOP_BUTTONS_HEIGHT) Then
                 EndDeployment()
             ElseIf IsMouseInRectangle(UP_DOWN_BUTTON_LEFT, TOP_BUTTONS_TOP, DIR_BUTTONS_WIDTH, TOP_BUTTONS_HEIGHT) Then

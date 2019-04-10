@@ -211,16 +211,19 @@ Module UtilityFunctions
         SwinGame.DrawFramerate(675, 585)
     End Sub
 
+	'''Adds an explosion animation to the column and row requested
     Public Sub AddExplosion(ByVal row As Integer, ByVal col As Integer)
         AddAnimation(row, col, "Splash")
     End Sub
 
+	'''Adds a splash animation to the column and row requested
     Public Sub AddSplash(ByVal row As Integer, ByVal col As Integer)
         AddAnimation(row, col, "Splash")
     End Sub
 
     Private _Animations As New List(Of Sprite)()
 
+	'''Adds an animation to the grid location specified on the battleship board. Does this by locating the pixel position of where the animation should go relevant to the x and y value inputted.
     Private Sub AddAnimation(ByVal row As Integer, ByVal col As Integer, ByVal image As String)
         Dim s As Sprite
         Dim imgObj as Bitmap
@@ -239,6 +242,7 @@ Module UtilityFunctions
         _Animations.Add(s)
     End Sub
 
+	'''Will update the animation until it is done. Example: Explosion will keep changing sprites until the last sprite in the sprite record is shown.
     Public Sub UpdateAnimations()
         Dim ended As New List(Of Sprite)()
         For Each s As Sprite In _Animations
@@ -253,13 +257,15 @@ Module UtilityFunctions
             SwinGame.FreeSprite(s)
         Next
     End Sub
-
+	
+	'''Draws the selected animation
     Public Sub DrawAnimations()
         For Each s As Sprite In _Animations
             SwinGame.DrawSprite(s)
         Next
     End Sub
 
+	'''Sets the framerate for which animations are drawn.
     Public Sub DrawAnimationSequence()
         Dim i as Integer
 For i  = 1 To ANIMATION_CELLS * FRAMES_PER_CELL

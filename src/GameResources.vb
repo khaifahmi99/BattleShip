@@ -106,6 +106,9 @@ For i  = 1 To 5
     ''' The Resources Class stores all of the Games Media Resources, such as Images, Fonts
     ''' Sounds, Music.
     ''' </summary>
+	
+	''' <param name ="width">the width of the screen</param>
+	''' <param name ="height">the height of the screen</param>
 
     Public Sub LoadResources()
         Dim width, height As Integer
@@ -139,6 +142,7 @@ For i  = 1 To 5
         EndLoadingScreen(width, height)
     End Sub
 
+	'''Shows SwinGame loading screen on boot
     Private Sub ShowLoadingScreen()
         _Background = SwinGame.LoadBitmap(SwinGame.PathToResource("SplashBack.png", ResourceKind.BitmapResource))
         SwinGame.DrawBitmap(_Background, 0, 0)
@@ -155,6 +159,7 @@ For i  = 1 To 5
         PlaySwinGameIntro()
     End Sub
 
+	'''Plays SwinGame intro sequence.
     Private Sub PlaySwinGameIntro()
         Const ANI_CELL_COUNT As Integer = 11
 
@@ -173,6 +178,7 @@ For i  = 1 To 5
 
     End Sub
 
+	'''Shows message on screen in box. Used several times within the LoadResources() function within this file.
     Private Sub ShowMessage(ByVal message As String, ByVal number As Integer)
         Const TX As Integer = 310, TY As Integer = 493, TW As Integer = 200, TH As Integer = 25, STEPS As Integer = 5, BG_X As Integer = 279, BG_Y As Integer = 453
 
@@ -195,6 +201,7 @@ For i  = 1 To 5
         SwinGame.ProcessEvents()
     End Sub
 
+	'''When loading finishes, this screen is deployed. Loads the battleship screen.
     Private Sub EndLoadingScreen(ByVal width As Integer, ByVal height As Integer)
         SwinGame.ProcessEvents()
         SwinGame.Delay(500)
@@ -208,31 +215,38 @@ For i  = 1 To 5
         Audio.FreeSoundEffect(_StartSound)
         SwinGame.ChangeScreenSize(width, height)
     End Sub
-
+	
+	'''Creates a new font for the game to use given a file located within the parameters
     Private Sub NewFont(ByVal fontName As String, ByVal filename As String, ByVal size As Integer)
         _Fonts.Add(fontName, SwinGame.LoadFont(SwinGame.PathToResource(filename, ResourceKind.FontResource), size))
     End Sub
-
+	
+	'''Creates a new image for the game to use given a file located within the parameters
     Private Sub NewImage(ByVal imageName As String, ByVal filename As String)
         _Images.Add(imageName, SwinGame.LoadBitmap(SwinGame.PathToResource(filename, ResourceKind.BitmapResource)))
     End Sub
-
+	
+	'''Creates a new Transparent Color Image for the game to use given a file located within the parameters
     Private Sub NewTransparentColorImage(ByVal imageName As String, ByVal fileName As String, ByVal transColor As Color)
         _Images.Add(imageName, SwinGame.LoadBitmap(SwinGame.PathToResource(fileName, ResourceKind.BitmapResource)))
     End Sub
-
+	
+	'''Same function as above but converted to Australian (Colour, not Color). Is It necessary?
     Private Sub NewTransparentColourImage(ByVal imageName As String, ByVal fileName As String, ByVal transColor As Color)
         NewTransparentColorImage(imageName, fileName, transColor)
     End Sub
 
+	'''Creates a new sound for the game to use given a file located within the parameters
     Private Sub NewSound(ByVal soundName As String, ByVal filename As String)
         _Sounds.Add(soundName, Audio.LoadSoundEffect(SwinGame.PathToResource(filename, ResourceKind.SoundResource)))
     End Sub
 
+	'''Creates new music for the game to use given a file located within the parameters
     Private Sub NewMusic(ByVal musicName As String, ByVal filename As String)
         _Music.Add(musicName, Audio.LoadMusic(SwinGame.PathToResource(filename, ResourceKind.SoundResource)))
     End Sub
 
+	'''Free all loaded fonts in memory
     Private Sub FreeFonts()
         Dim obj As Font
         For Each obj In _Fonts.Values
@@ -240,6 +254,7 @@ For i  = 1 To 5
         Next
     End Sub
 
+	'''Frees all loaded images in memory
     Private Sub FreeImages()
         Dim obj As Bitmap
         For Each obj In _Images.Values
@@ -247,6 +262,7 @@ For i  = 1 To 5
         Next
     End Sub
 
+	'''Frees all loaded sounds in memory
     Private Sub FreeSounds()
         Dim obj As SoundEffect
         For Each obj In _Sounds.Values
@@ -254,6 +270,7 @@ For i  = 1 To 5
         Next
     End Sub
 
+	'''Frees all loaded music in memory
     Private Sub FreeMusic()
         Dim obj As Music
         For Each obj In _Music.Values
@@ -261,6 +278,7 @@ For i  = 1 To 5
         Next
     End Sub
 
+	'''Frees all temporary loaded unnecessary files within memory
     Public Sub FreeResources()
         FreeFonts()
         FreeImages()

@@ -146,27 +146,27 @@ Public Module GameController
         Else
             Message = "The AI " & result.ToString()
         End If
-
+		'''Checks the result of the attack
         Select Case result.Value
+			'''If the Result of the attack is a destroyed ship then execute code
             Case ResultOfAttack.Destroyed
                 PlayHitSequence(result.Row, result.Column, isHuman)
                 Audio.PlaySoundEffect(GameSound("Sink"))
-
+			'''If the result of the attack is game over then execute code
             Case ResultOfAttack.GameOver
                 PlayHitSequence(result.Row, result.Column, isHuman)
                 Audio.PlaySoundEffect(GameSound("Sink"))
-
+				'''Resets the game after a delay
                 While Audio.SoundEffectPlaying(GameSound("Sink"))
                     SwinGame.Delay(10)
                     SwinGame.RefreshScreen()
                 End While
-
+				'''If the human player lost then play a losing sound, play a winning sound if vice versa
                 If HumanPlayer.IsDestroyed Then
                     Audio.PlaySoundEffect(GameSound("Lose"))
                 Else
                     Audio.PlaySoundEffect(GameSound("Winner"))
                 End If
-
             Case ResultOfAttack.Hit
                 PlayHitSequence(result.Row, result.Column, isHuman)
             Case ResultOfAttack.Miss
